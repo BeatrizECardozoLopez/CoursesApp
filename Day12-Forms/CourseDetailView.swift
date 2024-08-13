@@ -29,18 +29,21 @@ struct CourseDetailView: View {
                 .padding(.horizontal, 10)
                 .padding(.bottom, 2)
             
-            Text(("Creado por " + course.author).uppercased())
+            Text(("By " + course.author).uppercased())
                 .font(.system(.headline, design: .rounded))
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 10)
                 .padding(.bottom, 2)
             
-            HStack  (spacing: 2){
-                ForEach(1...(course.difficulty), id: \.self) { _ in
-                    Image(systemName: "star")
-                        .font(.caption)
-                        .foregroundStyle(.purple)
-                }
+            HStack (spacing: 2){
+                Text("Difficulty: ")
+                    .font(.caption)
+                    .bold()
+                
+                    .foregroundStyle(.purple)
+                Image(systemName: "cellularbars", variableValue: Double(course.difficulty)/4)
+                    .font(.subheadline)
+                    .foregroundColor(.purple)
             } .padding(.horizontal, 10)
             
             Text(course.description)
@@ -75,10 +78,5 @@ struct CourseDetailView: View {
 }
 
 #Preview {
-    CourseDetailView(course: Course(
-        name: "Curso de Swift 5 desde cero",
-        image: "swift5",
-        author: "Juan Gabriel Gomillas",
-        difficulty: 3,
-        description: "Un curso que te ayudará a programar como un  profesional!"))
+    CourseDetailView(course: Course(name: "Data Analysis with R", image: "data_analysis_r.jpg", author: "Mia Miller", difficulty: 3, description: "Analyzing data using the R language", price: 11.99))
 }

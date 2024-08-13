@@ -7,17 +7,18 @@
 
 import Foundation
 
-struct Course: Identifiable{ //Para el protocolo Identifier, ahora podemos iniciar la lista sin especificar cual parametro identificador
-    
-    var id = UUID() //Unsigned unique identifier, nos asegura que cada curso tengo su identificador unico. Compuesto por un numero de 128 bits por lo que la probabilidad de que algun identificador sea igual a otro es casi 0.
+struct Course: Identifiable{
+    var id = UUID()
     var name : String
     var image : String
     var author: String
     var difficulty: Int
     var description : String
-    
-    
-    
-    
+    var price: Float
+    var isFavorite: Bool = false
+    var isPurchased: Bool = false
 }
+
+
+
 
