@@ -9,22 +9,17 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    //Variable de Entorno
+    //Enviroment variable
     @Environment(\.dismiss) var dismiss
     
-    
-    private var availableOrders = [
-        "Alphabetic Order",
-        "Favorites",
-        "Purchased"
-    ]
-    
-    @State private var selectedOrder = 0
-    @State private var showPurchased = false
-    @State private var showFavorite = false
+    @State private var selectedOrder = DisplayOrder.alphabetical //default value from enum
+    @State private var showPurchasedOnly = false
+    @State private var showFavoriteOnly = false
     @State private var difficultyLevel = 4 //higher difficulty available
     @State private var minPrice = 0.0
     @State private var maxPrice = 30.0
+    
+    var settings: SettingsFactory
     
     var body: some View {
         
@@ -33,8 +28,8 @@ struct SettingsView: View {
                 //PickerView
                 Section(header: Text("Courses Order")){
                     Picker(selection: $selectedOrder, label: Text("Order")){
-                        ForEach(0..<availableOrders.count, id: \.self) {
-                            Text(self.availableOrders[$0])
+                        ForEach(DisplayOrder.allCases, id: \.self) { order in
+                            Text(order.text)
                         }
                     }
                 }
@@ -43,12 +38,12 @@ struct SettingsView: View {
                 Section(header: Text("Filter courses")){
                     
                     //Filter
-                    Toggle(isOn: $showPurchased){
+                    Toggle(isOn: $showPurchasedOnly){
                         Text("Purchased Courses Only")
                     }
                     
                     //Filter
-                    Toggle(isOn: $showFavorite){
+                    Toggle(isOn: $showFavoriteOnly){
                         Text("Favorite Courses Only")
                     }
                     
@@ -95,27 +90,48 @@ struct SettingsView: View {
                     }
                 }
             }
-        }
-        .overlay (
-            HStack {
-                Spacer()
-                VStack {
-                    Button {
+            .navigationTitle("Settings")
+            .toolbar{
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button{
                         dismiss()
                     } label: {
-                        Image(systemName: "x.circle.fill")
-                            .foregroundColor(.red)
-                            .font(.title)
+                        Image(systemName: "xmark")
+                            .font(.system(size: 15))
+                            .padding(5)
+                            .foregroundColor(.white)
+                            .fontWeight(.black)
+                            .background(Color.red)
+                            .clipShape(Circle())
                     }
-                    .padding(.trailing, 16)
-                    Spacer()
                 }
             }
-        )
+            
+            //Save Chages Button
+            Button{
+                //TODO: save to SettingsFactory
+                dismiss()
+            } label: {
+                Label(
+                    title: {
+                        Text("Save changes")
+                            .fontWeight(.bold)
+                            .font(.system(size: 15, design: .rounded))
+                    },
+                    icon: {}
+                )
+                .frame(minWidth: 0, maxWidth: .infinity)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.purple)
+                .cornerRadius(20)
+                .padding(.horizontal, 30)
+            }
+        }
         
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(settings: SettingsFactory())
 }

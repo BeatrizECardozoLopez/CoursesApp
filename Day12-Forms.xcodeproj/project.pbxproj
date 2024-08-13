@@ -14,6 +14,7 @@
 		FB9E912A2C6B95FA007C55F9 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E91292C6B95FA007C55F9 /* Course.swift */; };
 		FB9E912C2C6B9636007C55F9 /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E912B2C6B9636007C55F9 /* CourseDetailView.swift */; };
 		FB9E912E2C6BA442007C55F9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E912D2C6BA442007C55F9 /* SettingsView.swift */; };
+		FB9E91302C6BDA37007C55F9 /* SettingsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9E912F2C6BDA37007C55F9 /* SettingsFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		FB9E91292C6B95FA007C55F9 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		FB9E912B2C6B9636007C55F9 /* CourseDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
 		FB9E912D2C6BA442007C55F9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FB9E912F2C6BDA37007C55F9 /* SettingsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				FB9E912D2C6BA442007C55F9 /* SettingsView.swift */,
 				FB9E911F2C6B9513007C55F9 /* Assets.xcassets */,
 				FB9E91212C6B9513007C55F9 /* Preview Content */,
+				FB9E912F2C6BDA37007C55F9 /* SettingsFactory.swift */,
 			);
 			path = "Day12-Forms";
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB9E912E2C6BA442007C55F9 /* SettingsView.swift in Sources */,
+				FB9E91302C6BDA37007C55F9 /* SettingsFactory.swift in Sources */,
 				FB9E912C2C6B9636007C55F9 /* CourseDetailView.swift in Sources */,
 				FB9E912A2C6B95FA007C55F9 /* Course.swift in Sources */,
 				FB9E911E2C6B9510007C55F9 /* ContentView.swift in Sources */,

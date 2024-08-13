@@ -62,7 +62,7 @@ struct CourseDetailView: View {
                 Button() {
                     dismiss()
                 } label: {
-                    Text("\(Image(systemName: "arrow.left.square")) \(course.name)")
+                    Text("\(Image(systemName: "arrow.left.square")) Recent Courses")
                         .foregroundStyle(.purple)
                 }
                 

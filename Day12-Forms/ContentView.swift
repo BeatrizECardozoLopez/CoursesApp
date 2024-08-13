@@ -15,17 +15,17 @@ struct ContentView: View {
         Course(name: "Advanced Data Structures", image: "data_structures", author: "Jane Smith", difficulty: 4, description: "In-depth study of data structures", price: 14.99),
         Course(name: "Artificial Intelligence Fundamentals", image: "ai_fundamentals", author: "Alex Johnson", difficulty: 3, description: "Understanding the basics of AI", price: 11.99),
         Course(name: "Mobile App Development with Swift", image: "mobile_dev_swift", author: "Emma Brown", difficulty: 3, description: "Creating iOS apps with Swift", price: 12.99),
-        Course(name: "Web Development Bootcamp", image: "web_dev_bootcamp.jpg", author: "Michael Clark", difficulty: 3, description: "Comprehensive web development course", price: 10.99),
-        Course(name: "Python for Data Science", image: "python_data_science.jpg", author: "Olivia White", difficulty: 2, description: "Using Python for data analysis", price: 9.99),
-        Course(name: "Machine Learning Basics", image: "machine_learning.jpg", author: "William Turner", difficulty: 4, description: "Understanding the fundamentals of machine learning", price: 13.99),
-        Course(name: "Cybersecurity Essentials", image: "cybersecurity_essentials.jpg", author: "Sophia Martinez", difficulty: 3, description: "Fundamentals of cybersecurity", price: 11.99),
-        Course(name: "UI/UX Design Fundamentals", image: "ui_ux_design.jpg", author: "Daniel Garcia", difficulty: 2, description: "Basic principles of UI/UX design", price: 10.99),
-        Course(name: "Java Programming Masterclass", image: "java_masterclass.jpg", author: "Isabella Lee", difficulty: 4, description: "Comprehensive Java programming course", price: 14.99),
-        Course(name: "Game Development with Unity", image: "game_dev_unity.jpg", author: "Andrew Hall", difficulty: 3, description: "Creating games using Unity engine", price: 12.99),
-        Course(name: "Database Management Basics", image: "db_management_basics.jpg", author: "Ethan Adams", difficulty: 2, description: "Fundamentals of database management", price: 9.99),
-        Course(name: "Cloud Computing Fundamentals", image: "cloud_computing.jpg", author: "Ava Wilson", difficulty: 3, description: "Understanding cloud computing concepts", price: 11.99),
-        Course(name: "Rapid Prototyping Techniques", image: "rapid_prototyping.jpg", author: "James Brown", difficulty: 2, description: "Quick methods for prototyping", price: 10.99),
-        Course(name: "Data Analysis with R", image: "data_analysis_r.jpg", author: "Mia Miller", difficulty: 3, description: "Analyzing data using the R language", price: 11.99)
+        Course(name: "Web Development Bootcamp", image: "web_dev_bootcamp", author: "Michael Clark", difficulty: 3, description: "Comprehensive web development course", price: 10.99),
+        Course(name: "Python for Data Science", image: "python_data_science", author: "Olivia White", difficulty: 2, description: "Using Python for data analysis", price: 9.99),
+        Course(name: "Machine Learning Basics", image: "machine_learning", author: "William Turner", difficulty: 4, description: "Understanding the fundamentals of machine learning", price: 13.99),
+        Course(name: "Cybersecurity Essentials", image: "cybersecurity_essentials", author: "Sophia Martinez", difficulty: 3, description: "Fundamentals of cybersecurity", price: 11.99),
+        Course(name: "UI/UX Design Fundamentals", image: "ui_ux_design", author: "Daniel Garcia", difficulty: 2, description: "Basic principles of UI/UX design", price: 10.99),
+        Course(name: "Java Programming Masterclass", image: "java_masterclass", author: "Isabella Lee", difficulty: 4, description: "Comprehensive Java programming course", price: 14.99),
+        Course(name: "Game Development with Unity", image: "game_dev_unity", author: "Andrew Hall", difficulty: 3, description: "Creating games using Unity engine", price: 12.99),
+        Course(name: "Database Management Basics", image: "db_management_basics", author: "Ethan Adams", difficulty: 2, description: "Fundamentals of database management", price: 9.99),
+        Course(name: "Cloud Computing Fundamentals", image: "cloud_computing", author: "Ava Wilson", difficulty: 3, description: "Understanding cloud computing concepts", price: 11.99),
+        Course(name: "Rapid Prototyping Techniques", image: "rapid_prototyping", author: "James Brown", difficulty: 2, description: "Quick methods for prototyping", price: 10.99),
+        Course(name: "Data Analysis with R", image: "data_analysis_r", author: "Mia Miller", difficulty: 3, description: "Analyzing data using the R language", price: 11.99)
     ]
     
     @State private var selectedCourse: Course?
@@ -103,13 +103,13 @@ struct ContentView: View {
                     } label: {
                         Text("\(Image(systemName: "gear"))")
                             .foregroundStyle(.purple)
-                            .font(.title)
+                            .font(.system(size: 25))
                             .fontWeight(.bold)
                     }
                 }
             } 
             .fullScreenCover(isPresented: $showModal, content: {
-                SettingsView()
+                SettingsView(settings: SettingsFactory())
             })
         }
         .tint(.purple)
