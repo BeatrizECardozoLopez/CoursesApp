@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CourseDetailView: View {
     
-    @Environment(\.dismiss) var dismiss //VARIABLE DE ENTORNO: SOLO EXISTE DESDE IOS 15 EN ADELANTE
-//    @Environment(\.presentationMode) var presentationMode VERSION VIEJA: antes de iOS 15
+    @Environment(\.dismiss) var dismiss 
     var course: Course
     
     
@@ -57,14 +56,11 @@ struct CourseDetailView: View {
 
         }
         .padding()
-        
-        //Esconder el boton de regreso dado por defecto PARA PODER CONSTRUIR NUESTRO PROPIO BOTON
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading){
                 Button() {
-                    // presentationMode.wrappedValue.dismiss() VERSION VIEJA: antes de iOS 15
-                    dismiss() //viene de la variable de entorno
+                    dismiss()
                 } label: {
                     Text("\(Image(systemName: "arrow.left.square")) \(course.name)")
                         .foregroundStyle(.purple)

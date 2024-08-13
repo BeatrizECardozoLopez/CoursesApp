@@ -29,6 +29,7 @@ struct ContentView: View {
     ]
     
     @State private var selectedCourse: Course?
+    @State private var showModal: Bool = false
     
     init() {
         //Modify NavigationBar Appeareance
@@ -95,6 +96,21 @@ struct ContentView: View {
             .listStyle(.plain)
             .navigationTitle("Recent Courses")
             .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing){
+                    Button() {
+                        self.showModal = true
+                    } label: {
+                        Text("\(Image(systemName: "gear"))")
+                            .foregroundStyle(.purple)
+                            .font(.title)
+                            .fontWeight(.bold)
+                    }
+                }
+            } 
+            .fullScreenCover(isPresented: $showModal, content: {
+                SettingsView()
+            })
         }
         .tint(.purple)
         
