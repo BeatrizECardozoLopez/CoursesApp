@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Day12_FormsApp: App {
+    
+    //Framework Combine
+    var settings = SettingsFactory()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(self.settings)
         }
     }
 }

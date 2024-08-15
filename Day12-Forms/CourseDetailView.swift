@@ -74,5 +74,5 @@ struct CourseDetailView: View {
 }
 
 #Preview {
-    CourseDetailView(course: Course(name: "Data Analysis with R", image: "data_analysis_r.jpg", author: "Mia Miller", difficulty: 3, description: "Analyzing data using the R language", price: 11.99))
+    CourseDetailView(course: Course(name: "Data Analysis with R", image: "data_analysis_r", author: "Mia Miller", difficulty: 3, description: "Analyzing data using the R language", price: 11.99))
 }

@@ -64,9 +64,9 @@
 				FB9E91292C6B95FA007C55F9 /* Course.swift */,
 				FB9E912B2C6B9636007C55F9 /* CourseDetailView.swift */,
 				FB9E912D2C6BA442007C55F9 /* SettingsView.swift */,
+				FB9E912F2C6BDA37007C55F9 /* SettingsFactory.swift */,
 				FB9E911F2C6B9513007C55F9 /* Assets.xcassets */,
 				FB9E91212C6B9513007C55F9 /* Preview Content */,
-				FB9E912F2C6BDA37007C55F9 /* SettingsFactory.swift */,
 			);
 			path = "Day12-Forms";
 			sourceTree = "<group>";

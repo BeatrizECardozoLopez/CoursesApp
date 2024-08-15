@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine //Observable objects
 
 enum DisplayOrder : Int, CaseIterable {
     case alphabetical = 0
@@ -43,11 +44,24 @@ enum DisplayOrder : Int, CaseIterable {
         }
     }
     
+    //Sort function: devuelve un clousure de orden 
+    func sortPredicate() -> ((Course, Course) -> Bool) {
+        switch self {
+        case .alphabetical:
+            return {$0.name < $1.name}
+        
+        case .favourite:
+            return {$0.isFavorite && !$1.isFavorite}
+            
+        case .purchased:
+            return {$0.isPurchased && !$1.isPurchased}
+        }
+    }
 }
 
 
 //User preferences
-final class SettingsFactory {
+final class SettingsFactory: ObservableObject { //Observable Object
     
     init() {
         UserDefaults.standard.register(defaults: [ //Important: dictionary
@@ -60,37 +74,37 @@ final class SettingsFactory {
         ])
     }
     
-    var displayOrder: Int = UserDefaults.standard.integer(forKey: "app.settings.displayOrder") {
+    @Published var displayOrder: Int = UserDefaults.standard.integer(forKey: "app.settings.displayOrder") { //@Published to know when a variable changes (Framework: Combine)
         didSet{
             UserDefaults.standard.set(displayOrder, forKey: "app.settings.displayOrder")
         }
     }
     
-    var showPurchasedOnly: Bool = UserDefaults.standard.bool(forKey: "app.settings.showPurchasedOnly"){
+    @Published var showPurchasedOnly: Bool = UserDefaults.standard.bool(forKey: "app.settings.showPurchasedOnly"){
         didSet{
             UserDefaults.standard.set(showPurchasedOnly, forKey: "app.settings.showPurchasedOnly")
         }
     }
     
-    var showFavoriteOnly: Bool = UserDefaults.standard.bool(forKey: "app.settings.showFavoriteOnly"){
+    @Published var showFavoriteOnly: Bool = UserDefaults.standard.bool(forKey: "app.settings.showFavoriteOnly"){
         didSet{
             UserDefaults.standard.set(showFavoriteOnly, forKey: "app.settings.showFavoriteOnly")
         }
     }
     
-    var difficultyLevel: Int = UserDefaults.standard.integer(forKey: "app.settings.difficultyLevel") {
+    @Published var difficultyLevel: Int = UserDefaults.standard.integer(forKey: "app.settings.difficultyLevel") {
         didSet{
             UserDefaults.standard.set(difficultyLevel, forKey: "app.settings.difficultyLevel")
         }
     }
     
-    var minPrice: Float = UserDefaults.standard.float(forKey: "app.settings.minPrice") {
+    @Published var minPrice: Float = UserDefaults.standard.float(forKey: "app.settings.minPrice") {
         didSet{
             UserDefaults.standard.set(minPrice, forKey: "app.settings.minPrice")
         }
     }
     
-    var maxPrice: Float = UserDefaults.standard.float(forKey: "app.settings.maxPrice") {
+    @Published var maxPrice: Float = UserDefaults.standard.float(forKey: "app.settings.maxPrice") {
         didSet{
             UserDefaults.standard.set(maxPrice, forKey: "app.settings.maxPrice")
         }

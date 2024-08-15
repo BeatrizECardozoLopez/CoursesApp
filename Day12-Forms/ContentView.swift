@@ -11,7 +11,7 @@ struct ContentView: View {
     
     
     @State var courses = [
-        Course(name: "Introduction to Programming", image: "intro_programming", author: "John Doe", difficulty: 2, description: "A beginner's guide to programming", price: 9.99),
+        Course(name: "Introduction to Programming", image: "intro_programming", author: "John Doe", difficulty: 1, description: "A beginner's guide to programming", price: 9.99),
         Course(name: "Advanced Data Structures", image: "data_structures", author: "Jane Smith", difficulty: 4, description: "In-depth study of data structures", price: 14.99),
         Course(name: "Artificial Intelligence Fundamentals", image: "ai_fundamentals", author: "Alex Johnson", difficulty: 3, description: "Understanding the basics of AI", price: 11.99),
         Course(name: "Mobile App Development with Swift", image: "mobile_dev_swift", author: "Emma Brown", difficulty: 3, description: "Creating iOS apps with Swift", price: 12.99),
@@ -30,6 +30,7 @@ struct ContentView: View {
     
     @State private var selectedCourse: Course?
     @State private var showModal: Bool = false
+    @EnvironmentObject var settings: SettingsFactory
     
     init() {
         //Modify NavigationBar Appeareance
@@ -48,46 +49,48 @@ struct ContentView: View {
         UINavigationBar.appearance().compactAppearance = navbarAppearance
         
         navbarAppearance.setBackIndicatorImage(UIImage(systemName: "arrow.backward.circle"), transitionMaskImage: UIImage(systemName: "arrow.backward.circle"))
+
     }
     
     var body: some View {
         
         NavigationStack{
             List {
-                ForEach(self.courses){ course in
-                    //TODO: to design home view
-                    NavigationLink (destination: CourseDetailView(course: course)){
-                    InfoImageRow(course: course)
-                        .contextMenu{ //for prolonged touch
-                            Button{
-                                self.buyCourse(product: course)
-                            } label: {
-                                HStack {
-                                    Text("Buy")
-                                    Image(systemName: "storefront.fill")
+                ForEach(self.courses.sorted(by: DisplayOrder(type: self.settings.displayOrder)!.sortPredicate())){ course in
+                    if self.shouldShowCourse(course: course) {
+                        NavigationLink (destination: CourseDetailView(course: course)){
+                            InfoImageRow(course: course)
+                                .contextMenu{ //for prolonged touch
+                                    Button{
+                                        self.buyCourse(product: course)
+                                    } label: {
+                                        HStack {
+                                            Text("Buy")
+                                            Image(systemName: "storefront.fill")
+                                        }
+                                    }
+                                    
+                                    Button{
+                                        self.favorite(product: course)
+                                    } label: {
+                                        HStack {
+                                            Text("Favorite")
+                                            Image(systemName: "star.fill")
+                                        }
+                                    }
+                                    
+                                    Button{
+                                        self.delete(product: course)
+                                    } label: {
+                                        HStack {
+                                            Text("Delete")
+                                            Image(systemName: "trash.fill")
+                                        }
+                                    }
                                 }
-                            }
-                            
-                            Button{
-                                self.favorite(product: course)
-                            } label: {
-                                HStack {
-                                    Text("Favorite")
-                                    Image(systemName: "star.fill")
+                                .onTapGesture {
+                                    self.selectedCourse = course
                                 }
-                            }
-                            
-                            Button{
-                                self.delete(product: course)
-                            } label: {
-                                HStack {
-                                    Text("Delete")
-                                    Image(systemName: "trash.fill")
-                                }
-                            }
-                        }
-                        .onTapGesture {
-                            self.selectedCourse = course
                         }
                     }
                 }
@@ -103,13 +106,13 @@ struct ContentView: View {
                     } label: {
                         Text("\(Image(systemName: "gear"))")
                             .foregroundStyle(.purple)
-                            .font(.system(size: 25))
+                            .font(.system(size: 22))
                             .fontWeight(.bold)
                     }
                 }
             } 
             .fullScreenCover(isPresented: $showModal, content: {
-                SettingsView(settings: SettingsFactory())
+                SettingsView().environmentObject(self.settings)
             })
         }
         .tint(.purple)
@@ -136,9 +139,28 @@ struct ContentView: View {
         }
     }
     
+    //FILTERS
+    private func shouldShowCourse(course: Course) -> Bool {
+        //Purchased Courses
+        let purchasedCondition = !self.settings.showPurchasedOnly || (self.settings.showPurchasedOnly && course.isPurchased)
+        
+        //Favourite Courses
+        let favouriteCondition = !self.settings.showFavoriteOnly || (self.settings.showFavoriteOnly && course.isFavorite)
+        
+        //Difficulty
+        let difficultyCondition = (course.difficulty <= self.settings.difficultyLevel)
+        
+        //Price Range
+        let priceRangeCondition = (course.price >= self.settings.minPrice) && (course.price <= self.settings.maxPrice)
+        
+        //Sort Condition
+        
+        
+         return purchasedCondition && favouriteCondition && difficultyCondition && priceRangeCondition
+    }
+    
     
 }
-
 
 //Small Image and course title
 struct InfoImageRow: View {
@@ -196,7 +218,7 @@ struct InfoImageRow: View {
 
 
 #Preview {
-    ContentView()
+    ContentView().environmentObject(SettingsFactory())
 }
 
 
